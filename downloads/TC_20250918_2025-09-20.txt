@@ -1,0 +1,60 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style type="text/css">
+        .ms-descriptiontext
+        {
+            /* [ReplaceColor(themeColor:"Dark1-Medium")] */
+            color: #4c4c4c;
+            font-family: tahoma;
+            font-size: 8pt;
+            text-align: left;
+        }
+        td
+        {
+            font-size: 12px;
+        }
+    </style>
+    <title>
+	Error
+</title><link rel="shortcut icon" type="image/x-icon" href="/image/favicon.ico" /></head>
+<body>
+    <form name="form1" method="post" action="./CustomErrorPage.aspx" id="form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTQ1MDg0MTUzOA9kFgICAw9kFgQCAQ8PFgQeBFRleHQFEE5vIFJlY29yZCBGb3VuZC4eB1Zpc2libGVnZGQCBQ8PFgQfAAUUMjAvOS8yMDI1IDg6MDA6NTUgUE0fAWdkZGTZkNWjkqkLPj8VzBVe3WYQ+pzi0h7gqHYBkArMiPzycw==" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="5D7FC467" />
+</div>
+    <div>
+        <!-- Error Msg-->
+        <table width="100%" border="0" cellpadding="0">
+            <tr>
+                <td valign="top" width="100%" style="padding-top: 10px" class="ms-descriptiontext">
+                    <p>
+                        <img alt="SGX" src="/_layouts/1033/styles/SGX.COW.MasterPage/SGX_COW_MasterPage/SgxImages/SGXLogo.jpg" />
+                    </p>
+                    <p style="color: Black; font-size: 10px;font-family:Arial">
+                        <span id="errorPageTitleSpan">
+                            <span id="lblErrorMsg">No Record Found.</span>
+                        </span>
+                    </p>
+                    
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Date:</strong>
+                    <span id="lblDate">20/9/2025 8:00:55 PM</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

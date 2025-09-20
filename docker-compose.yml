@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+
+  create-buckets:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 5 &&
+      mc alias set local http://minio:9000 minio minio123 &&
+      mc mb -p local/datalake || true &&
+      mc mb -p local/datalake/raw || true &&
+      mc mb -p local/datalake/derivative_reference || true &&
+      mc mb -p local/datalake/derivative_data || true
+      "
+
+  iceberg-rest:
+    image: tabulario/iceberg-rest:0.7.0
+    environment:
+      - CATALOG_WAREHOUSE=s3://datalake/derivative_data/iceberg
+      - CATALOG_IMPL=org.apache.iceberg.jdbc.JdbcCatalog
+      - CATALOG_URI=jdbc:sqlite:/tmp/iceberg_catalog.db
+      - S3_ENDPOINT=http://minio:9000
+      - S3_PATH_STYLE_ACCESS=true
+      - AWS_ACCESS_KEY_ID=minio
+      - AWS_SECRET_ACCESS_KEY=minio123
+    depends_on:
+      - minio
+      - create-buckets
+    ports:
+      - "8181:8181"
+    volumes:
+      - iceberg-metadata:/tmp
+
+  trino:
+    image: trinodb/trino:latest
+    depends_on:
+      - iceberg-rest
+      - create-buckets
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./trino/etc:/etc/trino
+
+  sgx-downloader:
+    build:
+      context: ./sgx_downloader
+      dockerfile: Dockerfile
+    depends_on:
+      - minio
+      - create-buckets
+    volumes:
+      - ./downloads:/data/raw
+      - reference-data:/data/reference
+      - warehouse-data:/data/warehouse
+    environment:
+      DOWNLOAD_DIR: /data/raw
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+    ports:
+      - "5022:5022"
+
+volumes:
+  minio-data:
+  iceberg-metadata:
+  reference-data:
+  warehouse-data:

@@ -28,7 +28,7 @@ ScrapeJob/
 ### 1. Clone Repo
 
 ```bash
-git clone https://github.com/your-username/sgx-downloader.git
+git clone https://github.com/joshphuocD/sgx_downloader
 cd sgx-downloader
 ```
 

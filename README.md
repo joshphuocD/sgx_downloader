@@ -29,7 +29,7 @@ ScrapeJob/
 
 ```bash
 git clone https://github.com/joshphuocD/sgx_downloader
-cd sgx-downloader
+cd sgx_downloader
 ```
 
 ### 2. Build & Start Containers
